@@ -1,0 +1,41 @@
+{
+  "name": "@dyb881/tab-bar",
+  "version": "0.1.0",
+  "description": "移动端底部导航 TabBar",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
+  "style": "./lib/style.css",
+  "less": "./src/style.less",
+  "scripts": {
+    "build": "tsc && lessc ./src/style.less > ./lib/style.css",
+    "patch": "npm version patch",
+    "minor": "npm version minor",
+    "major": "npm version major",
+    "push": "yarn build && npm publish --access=public"
+  },
+  "author": "dyb881",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^3.9.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
+    "classnames": "^2.2.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dyb881/tab-bar.git"
+  },
+  "keywords": [
+    "tab-bar"
+  ],
+  "bugs": {
+    "url": "https://github.com/dyb881/tab-bar/issues"
+  },
+  "homepage": "https://github.com/dyb881/tab-bar#readme"
+}
