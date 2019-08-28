@@ -34,15 +34,13 @@ export default class extends React.Component<IProps, IState> {
     };
   }
 
-  getSnapshotBeforeUpdate(prevProps: IProps) {
+  getSnapshotBeforeUpdate() {
     const { childs, activeKey } = this.state;
-    return activeKey !== prevProps.activeKey ? { isNewKey: true } : { isNewChild: !childs[activeKey] };
+    return !childs[activeKey];
   }
 
-  componentDidUpdate(prevProps: IProps, _prevState: IState, { isNewKey, isNewChild }: any) {
-    if (isNewKey) {
-      this.setState({ activeKey: prevProps.activeKey! });
-    } else if (isNewChild) {
+  componentDidUpdate(_prevProps: IProps, _prevState: IState, isNewChild: boolean) {
+    if (isNewChild) {
       const { childs, activeKey } = this.state;
       const { Child } = this.props.tabs[activeKey];
       childs[activeKey] = <Child />;
@@ -58,8 +56,7 @@ export default class extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { tabs, transition, hide } = this.props;
-    const { activeKey } = this.state;
+    const { tabs, transition, hide, activeKey = this.state.activeKey } = this.props;
     return (
       <div
         className={classNames('dyb-tab-bar-box', {
