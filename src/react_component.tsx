@@ -34,13 +34,15 @@ export default class extends React.Component<IProps, IState> {
     };
   }
 
-  getSnapshotBeforeUpdate() {
+  getSnapshotBeforeUpdate(prevProps: IProps) {
     const { childs, activeKey } = this.state;
-    return !childs[activeKey];
+    return activeKey !== prevProps.activeKey ? { isNewKey: true } : { isNewChild: !childs[activeKey] };
   }
 
-  componentDidUpdate(_prevProps: IProps, _prevState: IState, isNewChild: boolean) {
-    if (isNewChild) {
+  componentDidUpdate(prevProps: IProps, _prevState: IState, { isNewKey, isNewChild }: any) {
+    if (isNewKey) {
+      this.setState({ activeKey: prevProps.activeKey! });
+    } else if (isNewChild) {
       const { childs, activeKey } = this.state;
       const { Child } = this.props.tabs[activeKey];
       childs[activeKey] = <Child />;
