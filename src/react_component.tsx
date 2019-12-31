@@ -6,7 +6,7 @@ export type TTab = {
   render: (active: boolean) => React.ReactNode;
 };
 
-export type TProps = {
+export type TTabBarProps = {
   tabs: TTab[];
   activeKey?: number;
   onChange?: (activeKey: number) => void;
@@ -16,13 +16,16 @@ export type TProps = {
 
 type TChild = JSX.Element | undefined;
 
-type TState = {
+type TTabBarState = {
   childs: TChild[];
   activeKey: number;
 };
 
-export default class extends React.Component<TProps, TState> {
-  constructor(props: TProps) {
+/**
+ * 移动端底部导航
+ */
+export default class TabBar extends React.Component<TTabBarProps, TTabBarState> {
+  constructor(props: TTabBarProps) {
     super(props);
     const { tabs, activeKey = 0 } = props;
     const childs: TChild[] = tabs.map(() => undefined);
@@ -40,7 +43,7 @@ export default class extends React.Component<TProps, TState> {
     return !childs[activeKey];
   }
 
-  componentDidUpdate(_prevProps: TProps, _prevState: TState, isNewChild: boolean) {
+  componentDidUpdate(_prevProps: TTabBarProps, _prevState: TTabBarState, isNewChild: boolean) {
     if (isNewChild) {
       const { childs } = this.state;
       const { activeKey = this.state.activeKey } = this.props;
