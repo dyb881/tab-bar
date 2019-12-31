@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 export type TTab = {
-  Child: React.ComponentClass<any>;
+  Child: React.ComponentType<any>;
   render: (active: boolean) => React.ReactNode;
 };
 
