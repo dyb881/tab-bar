@@ -1,28 +1,28 @@
 import React from 'react';
 import classNames from 'classnames';
 
-interface ITab {
+export type TTab = {
   Child: React.ComponentClass<any>;
   render: (active: boolean) => React.ReactNode;
-}
+};
 
-interface IProps {
-  tabs: ITab[];
+export type TProps = {
+  tabs: TTab[];
   activeKey?: number;
   onChange?: (activeKey: number) => void;
   transition?: boolean;
   hide?: boolean;
-}
+};
 
 type TChild = JSX.Element | undefined;
 
-interface IState {
+type TState = {
   childs: TChild[];
   activeKey: number;
-}
+};
 
-export default class extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+export default class extends React.Component<TProps, TState> {
+  constructor(props: TProps) {
     super(props);
     const { tabs, activeKey = 0 } = props;
     const childs: TChild[] = tabs.map(() => undefined);
@@ -40,7 +40,7 @@ export default class extends React.Component<IProps, IState> {
     return !childs[activeKey];
   }
 
-  componentDidUpdate(_prevProps: IProps, _prevState: IState, isNewChild: boolean) {
+  componentDidUpdate(_prevProps: TProps, _prevState: TState, isNewChild: boolean) {
     if (isNewChild) {
       const { childs } = this.state;
       const { activeKey = this.state.activeKey } = this.props;
